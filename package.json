@@ -1,0 +1,25 @@
+{
+  "name": "geddit",
+  "version": "1.0.0",
+  "description": "A social networking site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShubhamSetia/Geddit.git"
+  },
+  "author": "Shubham Setia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShubhamSetia/Geddit/issues"
+  },
+  "homepage": "https://github.com/ShubhamSetia/Geddit#readme",
+  "dependencies": {
+    "express": "^4.16.1",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.14"
+  }
+}
