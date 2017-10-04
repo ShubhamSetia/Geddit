@@ -1,43 +1,36 @@
-const express = require('express');
-const app = express();
-const router =  express.Router();
-const mongoose = require('mongoose');
-const config = require('./config/database');
-const path = require('path');
-console.log(require('./routes/authentication'));
-const authentication = require('./routes/authentication')(router);
-const bodyParser = require('body-parser');
-const cors =  require('cors');
+const express = require('express'); // Fast, unopinionated, minimalist web framework for node.
+const app = express(); // Initiate Express Application
+const router = express.Router(); // Creates a new router object.
+const mongoose = require('mongoose'); // Node Tool for MongoDB
 mongoose.Promise = global.Promise;
+const config = require('./config/database'); // Mongoose Config
+const path = require('path'); // NodeJS Package for file paths
+const authentication = require('./routes/authentication')(router); // Import Authentication Routes
+const bodyParser = require('body-parser'); // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+const cors = require('cors'); // CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 
-mongoose.connect(config.uri, {useMongoClient: true,},(err) => {
-  //console.log("in here");
-  if (err){
-    console.log('Could not connect to database: ',err)
+// Database Connection
+mongoose.connect(config.uri,{useMongoClient: true,}, (err) => {
+  if (err) {
+    console.log('Could NOT connect to database: ', err);
+  } else {
+    console.log('Connected to database: ' + config.db);
   }
-  else{
-    //console.log(config.secret)
-    console.log('Connected to database: '+config.db)
-  }
-});//
-
-
-app.use(cors({ origin: 'http://localhost:4200' })); 
-//console.log(config.secret)
-//provide static directory for frontend
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
-app.use(bodyParser.json())
-app.use(express.static(__dirname+ '/client/dist/'));
-app.use('/authentication',authentication)
-
-//connect server to Angular2 index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/dist/index.html'));
 });
-//start server;listening on port8080
-app.listen(8080,() => {
-  console.log('Listening on port 8080 ');
+
+// Middleware
+app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
+app.use(bodyParser.json()); // parse application/json
+app.use(express.static(__dirname + '/client/dist/')); // Provide static directory for frontend
+app.use('/authentication', authentication);
+
+// Connect server to Angular 2 Index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname , '/client/dist/index.html'));
+});
+
+// Start Server: Listen on port 8080
+app.listen(8080, () => {
+  console.log('Listening on port 8080');
 });
