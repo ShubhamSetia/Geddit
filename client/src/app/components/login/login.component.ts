@@ -65,10 +65,11 @@ export class LoginComponent implements OnInit {
         this.message = data.message; // Set success message
         // Function to store user's token in client local storage
         this.authService.storeUserData(data.token, data.user);
+        this.router.navigate(['/dashboard']);
         // After 2 seconds, redirect to dashboard page
-        setTimeout(() => {
+        /*setTimeout(() => {
           this.router.navigate(['/dashboard']); // Navigate to dashboard view
-        }, 2000);
+        }, 2000);*/
       }
     });
   }
