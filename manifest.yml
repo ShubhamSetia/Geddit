@@ -1,0 +1,4 @@
+applications:
+- name: Geddit
+  random-route: true
+  memory: 128M
