@@ -56,5 +56,24 @@ module.exports = (router) => {
     }
   });
 
+
+router.get('/allPosts', (req, res) => {
+  // Search database for all blog posts
+  Post.find({}, (err, posts) => {
+    // Check if error was found or not
+    if (err) {
+      res.json({ success: false, message: err }); // Return error message
+    } else {
+      // Check if blogs were found in database
+      if (!posts) {
+        res.json({ success: false, message: 'No posts found.' }); // Return error of no blogs found
+      } else {
+        res.json({ success: true, posts: posts }); // Return success and blogs array
+      }
+    }
+  }).sort({ '_id': -1 }); // Sort blogs from newest to oldest
+});
+
+
   return router;
 };

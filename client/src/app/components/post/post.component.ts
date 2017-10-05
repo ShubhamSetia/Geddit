@@ -17,6 +17,7 @@ export class PostComponent implements OnInit {
   form;
   processing = false;
   username;
+  blogPosts;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,9 +75,10 @@ export class PostComponent implements OnInit {
   }
 
   // Reload blogs on current page
-  reloadPost() {
+  reloadPosts() {
     this.loadingPosts = true; // Used to lock button
     // Get All Blogs
+    this.getAllPosts();
     setTimeout(() => {
       this.loadingPosts = false; // Release button lock after four seconds
     }, 4000);
@@ -110,6 +112,7 @@ export class PostComponent implements OnInit {
       } else {
         this.messageClass = 'alert alert-success'; // Return success class
         this.message = data.message; // Return success message
+        this.getAllPosts();
         // Clear form data after two seconds
         setTimeout(() => {
           this.newPost = false; // Hide form
@@ -126,12 +129,18 @@ export class PostComponent implements OnInit {
   goBack() {
     window.location.reload(); // Clear all variable states
   }
-
+  getAllPosts() {
+      // Function to GET all blogs from database
+      this.postService.getAllPosts().subscribe(data => {
+        this.blogPosts = data.posts; // Assign array to use in HTML
+      });
+    }
   ngOnInit() {
     // Get profile username on page load
     this.authService.getProfile().subscribe(profile => {
       this.username = profile.user.username; // Used when creating new blog posts and comments
     });
+    this.getAllPosts();
   }
 
 }
