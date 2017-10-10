@@ -16,6 +16,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 import { PostComponent } from './components/post/post.component';
+import { EditPostComponent } from './components/post/edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PostComponent } from './components/post/post.component';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    PostComponent
+    PostComponent,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,

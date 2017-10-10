@@ -14,7 +14,7 @@ let emailLengthChecker = (email) => {
     }
   }
 };
-
+//
 let validEmailChecker = (email) => {
   if (!email) {
     return false;

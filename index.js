@@ -10,6 +10,8 @@ const posts = require('./routes/post')(router);
 const bodyParser = require('body-parser'); // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 const cors = require('cors'); // CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 const port = process.env.PORT || 8080;
+const env = require('./env');
+
 // Database Connection
 mongoose.connect(config.uri,{useMongoClient: true,}, (err) => {
   if (err) {

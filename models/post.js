@@ -14,7 +14,7 @@ let titleLengthChecker = (title) => {
     }
   }
 };
-
+//
 let alphaNumericTitleChecker = (title) => {
   if (!title) {
     return false;
